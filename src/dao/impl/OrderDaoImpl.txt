@@ -1,0 +1,197 @@
+package dao.impl;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import dao.DbConnection;
+import dao.OrderDao;
+import model.Order;
+
+public class OrderDaoImpl implements OrderDao{
+
+	public static void main(String[] args) {
+        
+		Order o= new Order("Boo",1,2,3);
+		
+		new OrderDaoImpl().update(o);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/*List<Order> l=new OrderDaoImpl().selectAll();
+		
+		for(Order o:l)
+			if(o.getId()!=null)
+		{
+			System.out.println("id:"+o.getId()+"\tname:"+o.getName());
+		}else {
+			System.out.println("id is null for order with name:"+o.getName());
+		}
+		List<Student> l=new StudentDaoImpl().selectId(1);
+		
+		Student s=l.get(0);
+		
+		System.out.println("id:"+s.getId()+"\tname:"+s.getName());*/
+	}
+
+	
+
+	@Override
+	public void add(Order o) {
+		Connection conn=DbConnection.getDb();
+		String SQL="insert into Orders (name,byoga,syoga,ayoga,sum) values(?,?,?,?,?)";
+		try {
+			PreparedStatement ps=conn.prepareStatement(SQL);
+			ps.setString(1, o.getName());
+			ps.setInt(2, o.getByoga());
+			ps.setInt(3,o.getSyoga());
+			ps.setInt(4, o.getAyoga());
+			ps.setInt(5, o.getSum());
+			
+			ps.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+	@Override
+	public List<Order> selectAll() {
+		Connection conn = DbConnection.getDb();
+		String SQL = "select * from orders";
+		List<Order> l = new ArrayList();
+		try {
+			PreparedStatement ps = conn.prepareStatement(SQL);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				Order o = new Order();
+				o.setId(rs.getInt("id"));
+				o.setName(rs.getString("name"));
+				o.setByoga(rs.getInt("byoga"));
+				o.setSyoga(rs.getInt("syoga"));
+				o.setAyoga(rs.getInt("ayoga"));
+				o.setSum(rs.getInt("sum"));
+				l.add(o);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return l;
+	}
+
+	@Override
+	public List<Order> selectName1(String name) {
+		Connection conn = DbConnection.getDb();
+		String SQL = "select * from orders where name=?";
+		List<Order> l = new ArrayList();
+		try {
+			PreparedStatement ps = conn.prepareStatement(SQL);
+			ps.setString(1, name);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				Order o = new Order();
+				o.setId(rs.getInt("id"));
+				o.setName(rs.getString("name"));
+				o.setByoga(rs.getInt("byoga"));
+				o.setSyoga(rs.getInt("syoga"));
+				o.setAyoga(rs.getInt("ayoga"));
+				o.setSum(rs.getInt("sum"));
+				l.add(o);
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return l;
+	}
+
+	@Override
+	public void update(Order o) {
+		Connection conn=DbConnection.getDb();
+		try {
+			// 1. 設置 SQL_SAFE_UPDATES = 0
+	        String disableSafeUpdates = "SET SQL_SAFE_UPDATES = 0";
+	        PreparedStatement psDisable = conn.prepareStatement(disableSafeUpdates);
+	        psDisable.executeUpdate();
+	        
+	        // 2. 執行更新語句
+	        String SQL = "update company.orders set byoga=? , syoga=? , ayoga=? , sum=? where name=?";
+	        PreparedStatement ps = conn.prepareStatement(SQL);
+	        ps.setInt(1, o.getByoga());
+	        ps.setInt(2, o.getSyoga());
+	        ps.setInt(3, o.getAyoga());
+	        ps.setInt(4, o.getSum());
+	        ps.setString(5, o.getName());
+	        ps.executeUpdate();
+	        
+	        // 3. 設置 SQL_SAFE_UPDATES = 1
+	        String enableSafeUpdates = "SET SQL_SAFE_UPDATES = 1";
+	        PreparedStatement psEnable = conn.prepareStatement(enableSafeUpdates);
+	        psEnable.executeUpdate();
+		
+		}
+		
+		
+		
+		catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		catch(NullPointerException e) {
+			e.printStackTrace();
+		}		
+	}
+
+	@Override
+	public void delete(int id) {
+		Connection conn=DbConnection.getDb();
+		String SQL="delete from orders where id=?";
+		try {
+			PreparedStatement ps=conn.prepareStatement(SQL);
+			ps.setInt(1, id);
+			ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	public List<Order> selectName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public List<Order> selectId(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	}

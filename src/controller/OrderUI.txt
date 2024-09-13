@@ -1,0 +1,384 @@
+package controller;
+import java.awt.EventQueue;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import model.Order;
+import service.impl.OrderServiceImpl;
+
+import java.awt.Color;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JTextArea;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JRadioButton;
+import java.awt.print.PrinterException;
+import javax.swing.ImageIcon;
+public class OrderUI extends JFrame {
+	
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField name;
+	private JTextField byoga;
+	private JTextField syoga;
+	private JTextField ayoga;
+	private JTextField pay;
+	private static OrderServiceImpl osi=new OrderServiceImpl();
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					OrderUI frame = new OrderUI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	public OrderUI() 
+	{
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(300, 1, 725, 739);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(192, 192, 192));
+		panel.setBounds(53, 10, 329, 49);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("HaveTo Do 瑜伽課程訂單");
+		lblNewLabel.setFont(new Font("新細明體", Font.BOLD, 15));
+		lblNewLabel.setBounds(76, 10, 243, 29);
+		panel.add(lblNewLabel);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(128, 128, 255));
+		panel_1.setBounds(53, 69, 329, 223);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblNewLabel_1 = new JLabel("學員姓名");
+		lblNewLabel_1.setForeground(new Color(255, 255, 255));
+		lblNewLabel_1.setFont(new Font("新細明體", Font.BOLD, 13));
+		lblNewLabel_1.setBounds(37, 31, 54, 15);
+		panel_1.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("基礎瑜伽");
+		lblNewLabel_1_1.setForeground(Color.WHITE);
+		lblNewLabel_1_1.setFont(new Font("新細明體", Font.BOLD, 13));
+		lblNewLabel_1_1.setBounds(37, 61, 54, 15);
+		panel_1.add(lblNewLabel_1_1);
+		
+		JLabel lblNewLabel_1_2 = new JLabel("伸展瑜伽");
+		lblNewLabel_1_2.setForeground(Color.WHITE);
+		lblNewLabel_1_2.setFont(new Font("新細明體", Font.BOLD, 13));
+		lblNewLabel_1_2.setBounds(37, 91, 70, 15);
+		panel_1.add(lblNewLabel_1_2);
+		
+		JLabel lblNewLabel_1_2_1 = new JLabel("空中瑜伽");
+		lblNewLabel_1_2_1.setForeground(Color.WHITE);
+		lblNewLabel_1_2_1.setFont(new Font("新細明體", Font.BOLD, 13));
+		lblNewLabel_1_2_1.setBounds(37, 121, 70, 15);
+		panel_1.add(lblNewLabel_1_2_1);
+		
+		JLabel lblNewLabel_1_2_1_1 = new JLabel("堂/460元");
+		lblNewLabel_1_2_1_1.setForeground(Color.WHITE);
+		lblNewLabel_1_2_1_1.setFont(new Font("新細明體", Font.BOLD, 13));
+		lblNewLabel_1_2_1_1.setBounds(243, 121, 70, 15);
+		panel_1.add(lblNewLabel_1_2_1_1);
+		
+		JLabel lblNewLabel_1_2_1_2 = new JLabel("堂/430元");
+		lblNewLabel_1_2_1_2.setForeground(Color.WHITE);
+		lblNewLabel_1_2_1_2.setFont(new Font("新細明體", Font.BOLD, 13));
+		lblNewLabel_1_2_1_2.setBounds(243, 91, 70, 15);
+		panel_1.add(lblNewLabel_1_2_1_2);
+		
+		JLabel lblNewLabel_1_2_1_3 = new JLabel("堂/400元");
+		lblNewLabel_1_2_1_3.setForeground(Color.WHITE);
+		lblNewLabel_1_2_1_3.setFont(new Font("新細明體", Font.BOLD, 13));
+		lblNewLabel_1_2_1_3.setBounds(243, 61, 70, 15);
+		panel_1.add(lblNewLabel_1_2_1_3);
+		
+		name = new JTextField();
+		name.setBounds(117, 28, 96, 21);
+		panel_1.add(name);
+		name.setColumns(10);
+		
+		byoga = new JTextField();
+		byoga.setText("0");
+		byoga.setBounds(117, 58, 96, 21);
+		panel_1.add(byoga);
+		byoga.setColumns(10);
+		
+		syoga = new JTextField();
+		syoga.setText("0");
+		syoga.setBounds(117, 88, 96, 21);
+		panel_1.add(syoga);
+		syoga.setColumns(10);
+		
+		ayoga = new JTextField();
+		ayoga.setText("0");
+		ayoga.setBounds(117, 118, 96, 21);
+		panel_1.add(ayoga);
+		ayoga.setColumns(10);
+				
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(new Color(192, 192, 192));
+		panel_2.setBounds(53, 302, 329, 406);
+		contentPane.add(panel_2);
+		panel_2.setLayout(null);
+				
+		JTextArea output = new JTextArea();
+		output.setBounds(26, 50, 279, 129);
+		panel_2.add(output);
+		
+		JTextArea output_1 = new JTextArea();
+		output_1.setBounds(26, 221, 279, 129);
+		panel_2.add(output_1);
+		
+		JLabel lblNewLabel_1_2_1_4 = new JLabel("付款金額");
+		lblNewLabel_1_2_1_4.setBounds(26, 196, 70, 15);
+		panel_2.add(lblNewLabel_1_2_1_4);
+		lblNewLabel_1_2_1_4.setForeground(new Color(0, 0, 0));
+		lblNewLabel_1_2_1_4.setFont(new Font("新細明體", Font.BOLD, 13));
+		
+		pay = new JTextField();
+		pay.setBounds(99, 193, 96, 21);
+		panel_2.add(pay);
+		pay.setText("0");
+		pay.setColumns(10);
+		
+		JLabel lblNewLabel_1_2_1_1_1 = new JLabel("8折");
+		lblNewLabel_1_2_1_1_1.setForeground(Color.WHITE);
+		lblNewLabel_1_2_1_1_1.setFont(new Font("新細明體", Font.BOLD, 13));
+		lblNewLabel_1_2_1_1_1.setBounds(37, 185, 70, 15);
+		panel_1.add(lblNewLabel_1_2_1_1_1);
+		
+		JLabel lblNewLabel_1_2_1_1_1_1 = new JLabel("85折");
+		lblNewLabel_1_2_1_1_1_1.setForeground(Color.WHITE);
+		lblNewLabel_1_2_1_1_1_1.setFont(new Font("新細明體", Font.BOLD, 13));
+		lblNewLabel_1_2_1_1_1_1.setBounds(98, 185, 70, 15);
+		panel_1.add(lblNewLabel_1_2_1_1_1_1);
+		
+		JLabel lblNewLabel_1_2_1_1_1_2 = new JLabel("9折");
+		lblNewLabel_1_2_1_1_1_2.setForeground(Color.WHITE);
+		lblNewLabel_1_2_1_1_1_2.setFont(new Font("新細明體", Font.BOLD, 13));
+		lblNewLabel_1_2_1_1_1_2.setBounds(159, 185, 70, 15);
+		panel_1.add(lblNewLabel_1_2_1_1_1_2);
+		
+		JLabel lblNewLabel_1_2_1_1_1_3 = new JLabel("95折");
+		lblNewLabel_1_2_1_1_1_3.setForeground(Color.WHITE);
+		lblNewLabel_1_2_1_1_1_3.setFont(new Font("新細明體", Font.BOLD, 13));
+		lblNewLabel_1_2_1_1_1_3.setBounds(220, 185, 70, 15);
+		panel_1.add(lblNewLabel_1_2_1_1_1_3);
+		
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("VIP");
+		rdbtnNewRadioButton.setBounds(37, 158, 50, 21);
+		panel_1.add(rdbtnNewRadioButton);
+		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("金卡");
+		rdbtnNewRadioButton_1.setBounds(98, 158, 50, 21);
+		panel_1.add(rdbtnNewRadioButton_1);
+		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("银卡");
+		rdbtnNewRadioButton_2.setBounds(159, 158, 50, 21);
+		panel_1.add(rdbtnNewRadioButton_2);
+		JRadioButton rdbtnNewRadioButton_3 = new JRadioButton("一般會員");
+		rdbtnNewRadioButton_3.setBounds(220, 158, 83, 21);
+		panel_1.add(rdbtnNewRadioButton_3);
+		ButtonGroup membershipGroup = new ButtonGroup();
+        membershipGroup.add(rdbtnNewRadioButton);
+        membershipGroup.add(rdbtnNewRadioButton_1);
+        membershipGroup.add(rdbtnNewRadioButton_2);
+        membershipGroup.add(rdbtnNewRadioButton_3);
+		JButton btnNewButton = new JButton("訂單確認");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e){		
+				String Name=name.getText();
+				String Byoga=byoga.getText();
+				String Syoga=syoga.getText();
+				String Ayoga=ayoga.getText();
+				Integer B=new Integer(Byoga);
+				Integer S=new Integer(Syoga);
+				Integer A=new Integer(Ayoga);
+				
+				Order o=new Order(Name,B,S,A);
+		
+				{
+			        String Name1 = name.getText();
+			        int B1 = Integer.parseInt(byoga.getText());
+			        int S1 = Integer.parseInt(syoga.getText());
+			        int A1 = Integer.parseInt(ayoga.getText());
+			        int payment = Integer.parseInt(pay.getText());
+
+			        Order o1 = new Order(Name1, B1, S1, A1);
+			        int totalAmount = o1.getSum();
+			        if (rdbtnNewRadioButton.isSelected()) {  // VIP
+			            totalAmount *= 0.8;o1.setSum(totalAmount);
+			        } else if (rdbtnNewRadioButton_1.isSelected()) {  // 金卡
+			            totalAmount *= 0.85;o1.setSum(totalAmount);
+			        } else if (rdbtnNewRadioButton_2.isSelected()) {  // 銀卡
+			            totalAmount *= 0.9;o1.setSum(totalAmount);
+			        } else if (rdbtnNewRadioButton_3.isSelected()) {  // 一般會員
+			            totalAmount *= 0.95;o1.setSum(totalAmount);
+			        }
+			        
+			        String outputText = "訂單細目:" +
+			        		            "\n================="+
+			                            "\n學員姓名: " + o1.getName() +
+			                            "\n基礎瑜伽: " + o1.getByoga() + "堂" +
+			                            "\n伸展瑜伽: " + o1.getSyoga() + "堂" +
+			                            "\n空中瑜伽: " + o1.getAyoga() + "堂" +
+			                            "\n總金額: " + totalAmount + "元" +
+			                            "\n=================";		                            
+			        osi.addOrder(o1);                 
+			        output.setText(outputText);
+			    }
+			;}		
+		});
+		
+		btnNewButton.setBounds(26, 17, 87, 23);
+		panel_2.add(btnNewButton);
+		
+		JButton btnNewButton_2 = new JButton("修改");
+		btnNewButton_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String Name=name.getText();
+				String Byoga=byoga.getText();
+				String Syoga=syoga.getText();
+				String Ayoga=ayoga.getText();
+				Integer B=new Integer(Byoga);
+				Integer S=new Integer(Syoga);
+				Integer A=new Integer(Ayoga);
+				
+				Order o=new Order(Name,B,S,A);
+		
+				{
+			        String Name1 = name.getText();
+			        int B1 = Integer.parseInt(byoga.getText());
+			        int S1 = Integer.parseInt(syoga.getText());
+			        int A1 = Integer.parseInt(ayoga.getText());
+			        int payment = Integer.parseInt(pay.getText());
+
+			        Order o1 = new Order(Name1, B1, S1, A1);
+			        int totalAmount = o1.getSum();
+			        if (rdbtnNewRadioButton.isSelected()) {  // VIP
+			            totalAmount *= 0.8;o1.setSum(totalAmount);
+			        } else if (rdbtnNewRadioButton_1.isSelected()) {  // 金卡
+			            totalAmount *= 0.85;o1.setSum(totalAmount);
+			        } else if (rdbtnNewRadioButton_2.isSelected()) {  // 銀卡
+			            totalAmount *= 0.9;o1.setSum(totalAmount);
+			        } else if (rdbtnNewRadioButton_3.isSelected()) {  // 一般會員
+			            totalAmount *= 0.95;o1.setSum(totalAmount);
+			        }
+			        
+			        String outputText = "訂單細目:" +
+			        		            "\n================="+
+			                            "\n學員姓名: " + o1.getName() +
+			                            "\n基礎瑜伽: " + o1.getByoga() + "堂" +
+			                            "\n伸展瑜伽: " + o1.getSyoga() + "堂" +
+			                            "\n空中瑜伽: " + o1.getAyoga() + "堂" +
+			                            "\n總金額: " + totalAmount + "元" +
+			                            "\n=================";
+			        
+			        osi.updateOrder(o1);            
+			        output.setText(outputText);
+			}
+			}});
+		btnNewButton_2.setBounds(123, 17, 87, 23);
+		panel_2.add(btnNewButton_2);
+		
+		JButton btnReset_1 = new JButton("列印訂單");
+		btnReset_1.setBounds(218, 17, 87, 23);
+		panel_2.add(btnReset_1);
+		
+		JButton btnNewButton_1 = new JButton("找零");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			        String Name1 = name.getText();
+			        int B1 = Integer.parseInt(byoga.getText());
+			        int S1 = Integer.parseInt(syoga.getText());
+			        int A1 = Integer.parseInt(ayoga.getText());
+			        int payment = Integer.parseInt(pay.getText());
+
+			        Order o1 = new Order(Name1, B1, S1, A1);
+			        int totalAmount = o1.getSum();
+			        if (rdbtnNewRadioButton.isSelected()) {  // VIP
+			            totalAmount *= 0.8;
+			        } else if (rdbtnNewRadioButton_1.isSelected()) {  // 金卡
+			            totalAmount *= 0.85;
+			        } else if (rdbtnNewRadioButton_2.isSelected()) {  // 銀卡
+			            totalAmount *= 0.9;
+			        } else if (rdbtnNewRadioButton_3.isSelected()) {  // 一般會員
+			            totalAmount *= 0.95;
+			        }
+			        int change = payment - totalAmount;
+
+			        // 計算找零
+			        int hundredBills = change / 100;
+			        change = change % 100;
+
+			        int fiftyCoins = change / 50;
+			        change = change % 50;
+
+			        int tenCoins = change / 10;
+			        change = change % 10;
+
+			        int oneCoins = change;
+
+			        String output_1Text ="找零: " + (payment - totalAmount) + "元" +
+			        		             "\n================="+
+			                             "\n100元鈔票: " + hundredBills + "張" +
+			                             "\n50元硬幣: " + fiftyCoins + "枚" +
+			                             "\n10元硬幣: " + tenCoins + "枚" +
+			                             "\n1元硬幣: " + oneCoins + "枚";
+
+			        output_1.setText(output_1Text);
+				}
+						
+			});
+		btnNewButton_1.setBounds(205, 193, 87, 23);
+		panel_2.add(btnNewButton_1);
+		
+		JButton btnReset = new JButton("结束");
+		btnReset.setBounds(205, 369, 87, 23);
+		panel_2.add(btnReset);
+		
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setIcon(new ImageIcon(OrderUI.class.getResource("/controller/pexels-elly-fairytale-3822632-訂單.jpg")));
+		lblNewLabel_2.setBounds(332, 132, 384, 576);
+		contentPane.add(lblNewLabel_2);
+		btnReset.addMouseListener(new MouseAdapter() {
+			@Override
+		    public void mouseClicked(MouseEvent e) 
+		    {
+		        dispose();
+		    }
+		});
+		btnReset_1.addMouseListener(new MouseAdapter() {
+			@Override
+		    public void mouseClicked(MouseEvent e) {
+		            try
+		            {
+		            	output.print();
+		            } 
+		            catch (PrinterException ex) 
+		            {
+		                ex.printStackTrace();
+		            }
+		        }
+		});
+	}
+}

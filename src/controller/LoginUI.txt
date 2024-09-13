@@ -1,0 +1,124 @@
+package controller;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import controller.OrderUI;
+
+import model.Member;
+import service.impl.MemberServiceImpl;
+import util.Cal;
+
+import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.ImageIcon;
+
+public class LoginUI extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField username;
+	private JTextField password;
+	private static MemberServiceImpl msi=new MemberServiceImpl();
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					LoginUI frame = new LoginUI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public LoginUI() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(400, 50, 411, 631);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("帳號");
+		lblNewLabel.setBounds(138, 159, 46, 15);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("密碼");
+		lblNewLabel_1.setBounds(138, 200, 46, 15);
+		contentPane.add(lblNewLabel_1);
+		
+		username = new JTextField();
+		username.setBounds(189, 156, 96, 21);
+		contentPane.add(username);
+		username.setColumns(10);
+		
+		password = new JTextField();
+		password.setBounds(189, 197, 96, 21);
+		contentPane.add(password);
+		password.setColumns(10);
+		
+		JButton btnNewButton = new JButton("登入");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String Username=username.getText();
+				String Password=password.getText();
+				
+				Member m=msi.Login(Username, Password);
+				
+				if(m!=null)
+				{
+					Cal.SaveObject(m, "Member.txt");
+					
+					
+					OrderUI l=new OrderUI();
+					l.setVisible(true);
+					dispose();
+				}
+				else
+				{
+					LoginError l=new LoginError();
+					l.setVisible(true);
+					dispose();
+				}
+				
+				
+				
+			}
+		});
+		btnNewButton.setBounds(97, 265, 87, 23);
+		contentPane.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("註冊");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Cal.gotoAddMember();
+				dispose();
+			}
+		});
+		btnNewButton_1.setBounds(248, 265, 87, 23);
+		contentPane.add(btnNewButton_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setIcon(new ImageIcon(LoginUI.class.getResource("/controller/pexels-mikhail-nilov-6740748-登入.jpg")));
+		lblNewLabel_2.setBounds(0, 0, 565, 605);
+		contentPane.add(lblNewLabel_2);
+	}
+}

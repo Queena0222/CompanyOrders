@@ -1,0 +1,64 @@
+package model;
+
+public class Order {
+	private Integer id;
+	private String name;
+	private Integer byoga;
+	private Integer syoga;
+	private Integer ayoga;
+	private Integer sum;
+	public Order()
+	{
+		super();
+	}
+	public Order(String name, Integer byoga, Integer syoga,Integer ayoga) {
+		super();
+		this.name = name;
+		this.byoga = byoga;
+		this.syoga = syoga;
+		this.ayoga = ayoga;
+		this.sum=this.byoga*400+this.syoga*430+this.ayoga*460;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public Integer getByoga() {
+		return byoga;
+	}
+	public void setByoga(Integer byoga) {
+		this.byoga = byoga;
+	}
+	public Integer getSyoga() {
+		return syoga;
+	}
+	public void setSyoga(Integer syoga) {
+		this.syoga = syoga;
+	}
+	public Integer getAyoga() {
+		return ayoga;
+	}
+	public void setAyoga(Integer ayoga) {
+		this.ayoga = ayoga;
+	}
+	public Integer getSum() {
+		return sum;
+	}
+	public Integer getId() {
+		// TODO Auto-generated method stub
+		return id;
+	}
+	public void setId(Integer id) {
+		// TODO Auto-generated method stub
+		this.id = id;
+	}
+	public void setSum(int int1) {
+		this.sum=int1;
+		
+	}
+	
+	
+
+}

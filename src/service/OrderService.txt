@@ -1,0 +1,19 @@
+package service;
+
+import java.util.List;
+
+import model.Order;
+
+public interface OrderService {
+	
+	void addOrder(Order o);
+    
+    List<Order> findAll();
+	
+	void updateOrder(int id,String name,int byoga,int syoga,int ayoga,int sum);
+	
+	void deleteOrder(int id);
+
+	//void updateOrder(String name, int byoga, int syoga, int ayoga, int sum);
+
+}
